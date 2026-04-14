@@ -13,6 +13,185 @@
     API_BATCH_SIZE: 30  // API 每次获取视频数
   };
 
+  const MESSAGES = {
+    zh: {
+      toolbarTitle: '📹 批量工具',
+      collapse: '收起',
+      expand: '展开',
+      skipWatched: '跳过已看过的视频',
+      loadRange: '加载范围',
+      allVideos: '全部视频',
+      earliestYear: '最早 {years} 年',
+      byCount: '按数量',
+      loadVideoCount: '加载视频数量',
+      countPlaceholder: '输入数量',
+      selectedLabel: '已选择',
+      totalLabel: '总计',
+      loadVideos: '加载视频',
+      loading: '加载中...',
+      selectAll: '全选',
+      clearSelection: '取消全选',
+      addToWatchLater: '添加到稍后观看',
+      processing: '处理中...',
+      checkboxTitle: '点击选择/取消选择',
+      countSummary: '{shown} (共 {total})',
+      loadedVideos: '已加载 {count} 个视频',
+      filteredEarliestYears: '最早 {years} 年: {count} 个视频',
+      loadingCountProgress: '加载中... {current} / {target} 个',
+      loadingYearProgress: '加载中... {count} 个 ({years}年内)',
+      loadingAllProgress: '加载中... {count} 个',
+      selectVideosFirst: '请先选择视频',
+      resultAdded: '添加 {count} 个',
+      resultSkipped: '跳过 {count} 个(已在列表)',
+      resultNoChange: '无变化',
+      resultSuccess: '成功 {count}',
+      resultFailed: '失败 {count}',
+      progressFetchingWatchLater: '获取稍后观看列表...',
+      progressProcessing: '处理中: {current}/{total}',
+      progressSuccess: '成功 {count}',
+      progressSkipped: '跳过 {count}',
+      progressFailed: '失败 {count}',
+      logOldestRange: '频道最老视频日期: {oldest}, 筛选范围: {start} - {end}',
+      logVideoDebug: '视频 {index}: 已观看={watched}, 进度={progress}%, 时间="{timeText}", 解析={parsed}',
+      logExtractedVideos: '提取到 {count} 个视频',
+      logVideoAlreadyExists: '视频 {videoId} 已在稍后观看列表中',
+      logAddReturnedStatus: '添加 {videoId} 返回 {status}: {snippet}',
+      logTryingFallback: '尝试备用方法',
+      logAddApiError: '添加 {videoId} API 返回错误: {error}',
+      logAddSuccess: '成功添加视频 {videoId}',
+      logAddFailed: '添加视频失败 {videoId}: {error}',
+      logSapisidMissing: '未找到 SAPISID cookie，可能未登录',
+      logSapisidFailed: '获取 SAPISIDHASH 失败: {error}',
+      logFetchingWatchLater: '正在获取稍后观看列表...',
+      logFetchWatchLaterFailed: '获取稍后观看列表失败: {status}',
+      logFirstPageWatchLater: '首页获取到 {count} 个视频，累计 {total} 个',
+      logFoundContinuations: '找到 {count} 个 continuation，继续获取...',
+      logNoContinuation: '未找到 continuation，可能只获取到部分列表',
+      logFetchWatchLaterDone: '稍后观看列表获取完成: {count} 个视频',
+      logFetchWatchLaterError: '获取稍后观看列表出错: {error}',
+      logFetchMorePage: '第 {page} 页: 新增 {found} 个视频，累计 {total} 个，待处理 continuation {queue} 个',
+      logFetchMoreError: '获取更多视频出错: {error}',
+      errVideoElementMissing: '找不到视频元素',
+      errMenuButtonMissing: '找不到菜单按钮',
+      errSaveButtonMissing: '找不到保存按钮',
+      errWatchLaterMissing: '找不到稍后观看选项',
+      logAlreadyInWatchLaterFallback: '视频 {videoId} 已在稍后观看列表中（备用方法检测）',
+      logFallbackFailed: '备用方法也失败 {videoId}: {error}',
+      logWatchLaterUnavailable: '无法获取稍后观看列表，继续尝试添加',
+      logSkipExistingVideo: '视频 {videoId} 已在稍后观看列表中，跳过',
+      logCountModeTarget: '按数量加载，目标: {count} 个视频',
+      logLoadedCount: '加载了 {count} 个视频',
+      logReachedTarget: '已达到目标数量 {count}，停止加载',
+      logOldestCutoff: '最老视频日期: {oldest}, 截止日期: {cutoff}',
+      logDateCoverage: '有日期的视频: {withDate}, 无日期: {withoutDate}',
+      logOutOfRangeLastTen: '最后10个视频中超出范围的: {count}',
+      logStopOutOfRange: '检测到超出范围的视频，停止加载',
+      logNoParsedDates: '没有解析到时间信息，有日期: {withDate}, 无日期: {withoutDate}',
+      logNoChangeCount: '视频数量未变化，计数: {count}',
+      logFoundChipButtons: '找到 {count} 个 chip 按钮',
+      logOpenNewestMenu: '点击"最新"按钮展开菜单',
+      logMenuButtonsFound: '菜单展开后找到 {count} 个按钮',
+      logSelectedOldest: '已选择"最早"排序',
+      logOldestNotFound: '菜单中未找到"最早"选项',
+      logAlreadyOldest: '当前已是"最早"排序',
+      logSortButtonMissing: '未找到排序按钮',
+      logSortSelectionFailed: '选择排序失败: {error}',
+      logInit: '初始化批量工具...'
+    },
+    en: {
+      toolbarTitle: '📹 Batch Tool',
+      collapse: 'Collapse',
+      expand: 'Expand',
+      skipWatched: 'Skip watched videos',
+      loadRange: 'Load range',
+      allVideos: 'All videos',
+      earliestYear: 'Earliest {years} year(s)',
+      byCount: 'By count',
+      loadVideoCount: 'Number of videos to load',
+      countPlaceholder: 'Enter a number',
+      selectedLabel: 'Selected',
+      totalLabel: 'Total',
+      loadVideos: 'Load Videos',
+      loading: 'Loading...',
+      selectAll: 'Select All',
+      clearSelection: 'Clear Selection',
+      addToWatchLater: 'Add to Watch Later',
+      processing: 'Processing...',
+      checkboxTitle: 'Click to select or unselect',
+      countSummary: '{shown} (of {total})',
+      loadedVideos: 'Loaded {count} video(s)',
+      filteredEarliestYears: 'Earliest {years} year(s): {count} video(s)',
+      loadingCountProgress: 'Loading... {current} / {target}',
+      loadingYearProgress: 'Loading... {count} ({years}-year window)',
+      loadingAllProgress: 'Loading... {count}',
+      selectVideosFirst: 'Select at least one video first',
+      resultAdded: 'Added {count}',
+      resultSkipped: 'Skipped {count} (already in list)',
+      resultNoChange: 'No changes',
+      resultSuccess: 'Succeeded {count}',
+      resultFailed: 'Failed {count}',
+      progressFetchingWatchLater: 'Fetching Watch Later list...',
+      progressProcessing: 'Processing: {current}/{total}',
+      progressSuccess: 'Success {count}',
+      progressSkipped: 'Skipped {count}',
+      progressFailed: 'Failed {count}',
+      logOldestRange: 'Oldest channel video date: {oldest}, selected range: {start} - {end}',
+      logVideoDebug: 'Video {index}: watched={watched}, progress={progress}%, time="{timeText}", parsed={parsed}',
+      logExtractedVideos: 'Extracted {count} video(s)',
+      logVideoAlreadyExists: 'Video {videoId} is already in Watch Later',
+      logAddReturnedStatus: 'Adding {videoId} returned {status}: {snippet}',
+      logTryingFallback: 'Trying fallback method',
+      logAddApiError: 'Add API returned an error for {videoId}: {error}',
+      logAddSuccess: 'Added video {videoId} successfully',
+      logAddFailed: 'Failed to add video {videoId}: {error}',
+      logSapisidMissing: 'SAPISID cookie not found. You may not be signed in.',
+      logSapisidFailed: 'Failed to build SAPISIDHASH: {error}',
+      logFetchingWatchLater: 'Fetching Watch Later list...',
+      logFetchWatchLaterFailed: 'Failed to fetch Watch Later list: {status}',
+      logFirstPageWatchLater: 'First page returned {count} video(s), {total} total so far',
+      logFoundContinuations: 'Found {count} continuation token(s), continuing...',
+      logNoContinuation: 'No continuation token found. The list may be incomplete.',
+      logFetchWatchLaterDone: 'Watch Later fetch complete: {count} video(s)',
+      logFetchWatchLaterError: 'Error while fetching Watch Later list: {error}',
+      logFetchMorePage: 'Page {page}: added {found} video(s), {total} total, {queue} continuation(s) queued',
+      logFetchMoreError: 'Error while fetching more videos: {error}',
+      errVideoElementMissing: 'Video element not found',
+      errMenuButtonMissing: 'Menu button not found',
+      errSaveButtonMissing: 'Save button not found',
+      errWatchLaterMissing: 'Watch Later option not found',
+      logAlreadyInWatchLaterFallback: 'Video {videoId} is already in Watch Later (fallback detection)',
+      logFallbackFailed: 'Fallback method also failed for {videoId}: {error}',
+      logWatchLaterUnavailable: 'Could not fetch Watch Later list. Continuing anyway.',
+      logSkipExistingVideo: 'Video {videoId} is already in Watch Later. Skipping.',
+      logCountModeTarget: 'Count mode target: {count} video(s)',
+      logLoadedCount: 'Loaded {count} video(s)',
+      logReachedTarget: 'Reached target of {count} video(s), stopping',
+      logOldestCutoff: 'Oldest date: {oldest}, cutoff date: {cutoff}',
+      logDateCoverage: 'Videos with dates: {withDate}, without dates: {withoutDate}',
+      logOutOfRangeLastTen: 'Out-of-range videos in the last 10: {count}',
+      logStopOutOfRange: 'Detected out-of-range videos, stopping load',
+      logNoParsedDates: 'No parsable publish dates found. With dates: {withDate}, without dates: {withoutDate}',
+      logNoChangeCount: 'Video count unchanged, streak: {count}',
+      logFoundChipButtons: 'Found {count} chip button(s)',
+      logOpenNewestMenu: 'Opening the "Newest" menu',
+      logMenuButtonsFound: 'Found {count} button(s) after opening the menu',
+      logSelectedOldest: 'Selected "Oldest" sorting',
+      logOldestNotFound: 'Could not find the "Oldest" option in the menu',
+      logAlreadyOldest: 'The page is already sorted by "Oldest"',
+      logSortButtonMissing: 'Sort button not found',
+      logSortSelectionFailed: 'Failed to choose the sort order: {error}',
+      logInit: 'Initializing batch tool...'
+    }
+  };
+
+  const UI_TEXT = {
+    newest: ['最新', '最新发布', 'newest'],
+    oldest: ['最早', '最旧', 'oldest'],
+    moreActions: ['更多操作', 'more actions'],
+    watchLater: ['稍后观看', 'watch later'],
+    saveToPlaylist: ['保存到播放列表', 'save to playlist']
+  };
+
   // 状态
   let state = {
     selectedVideos: new Set(),
@@ -25,6 +204,58 @@
   // 工具函数
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  function getCurrentLanguage() {
+    const pageLang = (document.documentElement.lang || '').toLowerCase();
+    const browserLang = (navigator.language || '').toLowerCase();
+    if (pageLang) {
+      return pageLang.startsWith('zh') ? 'zh' : 'en';
+    }
+    return browserLang.startsWith('zh') ? 'zh' : 'en';
+  }
+
+  function t(key, params = {}) {
+    const lang = getCurrentLanguage();
+    const template = MESSAGES[lang]?.[key] || MESSAGES.zh[key] || key;
+    return template.replace(/\{(\w+)\}/g, (_, token) => params[token] ?? `{${token}}`);
+  }
+
+  function formatCountSummary(shown, total) {
+    return t('countSummary', { shown, total });
+  }
+
+  function normalizeText(text) {
+    return (text || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  }
+
+  function matchesAnyText(text, candidates) {
+    const normalized = normalizeText(text);
+    return candidates.some(candidate => normalized === normalizeText(candidate));
+  }
+
+  function findElementByAriaLabel(selector, candidates) {
+    return Array.from(document.querySelectorAll(selector)).find(element => {
+      const ariaLabel = element.getAttribute('aria-label') || '';
+      const title = element.getAttribute('title') || '';
+      return matchesAnyText(ariaLabel, candidates) || matchesAnyText(title, candidates);
+    });
+  }
+
+  function findWatchLaterCheckbox() {
+    return Array.from(document.querySelectorAll('tp-yt-paper-checkbox')).find(element => {
+      const ariaLabel = element.getAttribute('aria-label') || '';
+      const text = element.textContent || '';
+      return matchesAnyText(ariaLabel, UI_TEXT.watchLater) || matchesAnyText(text, UI_TEXT.watchLater);
+    });
+  }
+
+  function findMenuItemByText(candidates) {
+    return Array.from(document.querySelectorAll('[role="menuitem"], ytd-menu-service-item-renderer')).find(element => {
+      const ariaLabel = element.getAttribute('aria-label') || '';
+      const text = element.textContent || '';
+      return matchesAnyText(ariaLabel, candidates) || matchesAnyText(text, candidates);
+    });
   }
 
   function getYearsAgo(years) {
@@ -51,7 +282,11 @@
     const rangeEnd = new Date(oldestDate);
     rangeEnd.setFullYear(rangeEnd.getFullYear() + years);
 
-    log(`频道最老视频日期: ${oldestDate.toLocaleDateString()}, 筛选范围: ${oldestDate.toLocaleDateString()} - ${rangeEnd.toLocaleDateString()}`);
+    log(t('logOldestRange', {
+      oldest: oldestDate.toLocaleDateString(),
+      start: oldestDate.toLocaleDateString(),
+      end: rangeEnd.toLocaleDateString()
+    }));
 
     // 筛选在这个范围内的视频
     return videos.filter(v => !v.publishedAt || v.publishedAt < rangeEnd);
@@ -150,7 +385,13 @@
 
       // 调试：每100个视频输出一次状态
       if (index % 100 === 0) {
-        log(`视频 ${index}: 已观看=${isWatched}, 进度=${progress}%, 时间="${timeText}", 解析=${publishedAt?.toLocaleDateString() || 'null'}`);
+        log(t('logVideoDebug', {
+          index,
+          watched: isWatched,
+          progress,
+          timeText,
+          parsed: publishedAt?.toLocaleDateString() || 'null'
+        }));
       }
 
       videos.push({
@@ -165,7 +406,7 @@
       });
     });
 
-    log(`提取到 ${videos.length} 个视频`);
+    log(t('logExtractedVideos', { count: videos.length }));
     return videos;
   }
 
@@ -281,13 +522,17 @@
         // 检查是否是"已存在"错误
         const errorMessage = data?.error?.message || '';
         if (errorMessage.includes('already') || errorMessage.includes('已') || response.status === 409) {
-          log(`视频 ${videoId} 已在稍后观看列表中`);
+          log(t('logVideoAlreadyExists', { videoId }));
           return { success: false, skipped: true, videoId };
         }
-        log(`添加 ${videoId} 返回 ${response.status}: ${JSON.stringify(data).substring(0, 200)}`, 'warn');
+        log(t('logAddReturnedStatus', {
+          videoId,
+          status: response.status,
+          snippet: JSON.stringify(data).substring(0, 200)
+        }), 'warn');
         // 如果是 403，可能需要使用其他方式
         if (response.status === 403) {
-          log(`尝试备用方法`, 'warn');
+          log(t('logTryingFallback'), 'warn');
           return await addToWatchLaterAlternative(videoId);
         }
         return { success: false, videoId, error: `HTTP ${response.status}` };
@@ -297,17 +542,17 @@
       if (data?.error) {
         const errorMsg = data.error.message || JSON.stringify(data.error);
         if (errorMsg.includes('already') || errorMsg.includes('已存在')) {
-          log(`视频 ${videoId} 已在稍后观看列表中`);
+          log(t('logVideoAlreadyExists', { videoId }));
           return { success: false, skipped: true, videoId };
         }
-        log(`添加 ${videoId} API 返回错误: ${errorMsg}`, 'warn');
+        log(t('logAddApiError', { videoId, error: errorMsg }), 'warn');
         return await addToWatchLaterAlternative(videoId);
       }
 
-      log(`成功添加视频 ${videoId}`);
+      log(t('logAddSuccess', { videoId }));
       return { success: true, videoId };
     } catch (error) {
-      log(`添加视频失败 ${videoId}: ${error.message}`, 'error');
+      log(t('logAddFailed', { videoId, error: error.message }), 'error');
       // 尝试备用方法
       return await addToWatchLaterAlternative(videoId);
     }
@@ -328,7 +573,7 @@
       }
 
       if (!sapisid) {
-        log('未找到 SAPISID cookie，可能未登录', 'warn');
+        log(t('logSapisidMissing'), 'warn');
         return null;
       }
 
@@ -347,14 +592,73 @@
 
       return `${timestamp}_${hashHex}`;
     } catch (error) {
-      log(`获取 SAPISIDHASH 失败: ${error.message}`, 'error');
+      log(t('logSapisidFailed', { error: error.message }), 'error');
       return null;
+    }
+  }
+
+  // 从 YouTube browse 响应中递归提取播放列表视频 ID
+  function collectPlaylistVideoIds(node, videoIds) {
+    if (!node) return 0;
+
+    let foundCount = 0;
+
+    if (Array.isArray(node)) {
+      node.forEach(item => {
+        foundCount += collectPlaylistVideoIds(item, videoIds);
+      });
+      return foundCount;
+    }
+
+    if (typeof node !== 'object') {
+      return 0;
+    }
+
+    const playlistVideoId = node.playlistVideoRenderer?.videoId;
+    if (playlistVideoId) {
+      const prevSize = videoIds.size;
+      videoIds.add(playlistVideoId);
+      if (videoIds.size > prevSize) {
+        foundCount++;
+      }
+    }
+
+    for (const value of Object.values(node)) {
+      foundCount += collectPlaylistVideoIds(value, videoIds);
+    }
+
+    return foundCount;
+  }
+
+  // 从 YouTube browse 响应中递归提取 continuation token
+  function collectContinuationTokens(node, tokens) {
+    if (!node) return;
+
+    if (Array.isArray(node)) {
+      node.forEach(item => collectContinuationTokens(item, tokens));
+      return;
+    }
+
+    if (typeof node !== 'object') {
+      return;
+    }
+
+    const token =
+      node?.nextContinuationData?.continuation ||
+      node?.continuationCommand?.token;
+
+    if (token) {
+      tokens.add(token);
+    }
+
+    for (const value of Object.values(node)) {
+      collectContinuationTokens(value, tokens);
     }
   }
 
   // 获取稍后观看列表中的所有视频 ID
   async function fetchWatchLaterVideos() {
-    log('正在获取稍后观看列表...');
+    log(t('logFetchingWatchLater'));
     const videoIds = new Set();
 
     try {
@@ -400,79 +704,45 @@
       });
 
       if (!response.ok) {
-        log(`获取稍后观看列表失败: ${response.status}`, 'error');
+        log(t('logFetchWatchLaterFailed', { status: response.status }), 'error');
         return videoIds;
       }
 
       const data = await response.json();
 
-      // 解析响应
-      const twoColumn = data?.contents?.twoColumnBrowseResultsRenderer;
-      const tabs = twoColumn?.tabs;
-      const tabRenderer = tabs?.[0]?.tabRenderer;
-      const sectionList = tabRenderer?.content?.sectionListRenderer;
-      const sectionContents = sectionList?.contents;
-      const itemSection = sectionContents?.[0]?.itemSectionRenderer;
-      const itemSectionContents = itemSection?.contents;
-      const playlistVideoList = itemSectionContents?.[0]?.playlistVideoListRenderer;
-      const items = playlistVideoList?.contents;
+      const firstPageCount = collectPlaylistVideoIds(data, videoIds);
+      log(t('logFirstPageWatchLater', { count: firstPageCount, total: videoIds.size }));
 
-      if (items) {
-        for (const item of items) {
-          let videoId = item?.playlistVideoRenderer?.videoId;
-          if (!videoId && item?.content) {
-            videoId = item.content?.playlistVideoRenderer?.videoId;
-          }
-          if (videoId) {
-            videoIds.add(videoId);
-          }
-        }
-      }
+      const continuationTokens = new Set();
+      collectContinuationTokens(data, continuationTokens);
 
-      log(`获取到 ${videoIds.size} 个视频`);
-
-      // 尝试获取 continuation token 并继续获取
-      let continuation = null;
-
-      // 检查各种可能的 continuation 位置
-      if (playlistVideoList?.continuations) {
-        continuation = playlistVideoList.continuations[0]?.nextContinuationData?.continuation;
-      }
-
-      if (!continuation && items) {
-        const lastItem = items[items.length - 1];
-        // 尝试不同的 continuation 结构
-        continuation = lastItem?.continuationItemRenderer?.button?.buttonRenderer?.navigationEndpoint?.continuationCommand?.token;
-        if (!continuation) {
-          continuation = lastItem?.continuationItemRenderer?.continuationEndpoint?.continuationCommand?.token;
-        }
-      }
-
-      if (continuation) {
-        log('找到 continuation，继续获取...');
-        await fetchMoreVideos(continuation, videoIds, headers, client);
+      if (continuationTokens.size > 0) {
+        log(t('logFoundContinuations', { count: continuationTokens.size }));
+        await fetchMoreVideos(Array.from(continuationTokens), videoIds, headers, client);
       } else {
-        log('未找到 continuation，可能只获取到部分列表');
+        log(t('logNoContinuation'));
       }
 
-      log(`稍后观看列表获取完成: ${videoIds.size} 个视频`);
+      log(t('logFetchWatchLaterDone', { count: videoIds.size }));
       return videoIds;
 
     } catch (error) {
-      log(`获取稍后观看列表出错: ${error.message}`, 'error');
+      log(t('logFetchWatchLaterError', { error: error.message }), 'error');
       return videoIds;
     }
   }
 
   // 获取更多视频（使用 continuation）
-  async function fetchMoreVideos(continuation, videoIds, headers, client) {
+  async function fetchMoreVideos(initialContinuations, videoIds, headers, client) {
     const url = 'https://www.youtube.com/youtubei/v1/browse?prettyPrint=false';
-    let currentContinuation = continuation;
     let pageCount = 0;
-    const maxPages = 20;
+    const maxPages = 200;
+    const queue = [...initialContinuations];
+    const seenContinuations = new Set(initialContinuations);
 
-    while (currentContinuation && pageCount < maxPages) {
+    while (queue.length > 0 && pageCount < maxPages) {
       pageCount++;
+      const currentContinuation = queue.shift();
 
       const body = {
         context: { client },
@@ -490,42 +760,28 @@
         if (!response.ok) break;
 
         const data = await response.json();
+        const foundVideos = collectPlaylistVideoIds(data, videoIds);
+        const tokens = new Set();
+        collectContinuationTokens(data, tokens);
 
-        // continuation 响应的结构不同
-        let items = data?.onResponseReceivedActions?.[0]?.appendContinuationItemsAction?.continuationItems;
-
-        if (!items) {
-          items = data?.continuationContents?.playlistVideoListContinuation?.contents;
-        }
-
-        if (!items || items.length === 0) break;
-
-        let foundVideos = 0;
-        for (const item of items) {
-          let videoId = item?.playlistVideoRenderer?.videoId;
-          if (!videoId && item?.content) {
-            videoId = item.content?.playlistVideoRenderer?.videoId;
+        tokens.forEach(token => {
+          if (!seenContinuations.has(token)) {
+            seenContinuations.add(token);
+            queue.push(token);
           }
-          if (videoId) {
-            videoIds.add(videoId);
-            foundVideos++;
-          }
-        }
+        });
 
-        log(`第 ${pageCount + 1} 页: ${foundVideos} 个视频，累计 ${videoIds.size} 个`);
-
-        // 获取下一个 continuation
-        const lastItem = items[items.length - 1];
-        currentContinuation = lastItem?.continuationItemRenderer?.continuationEndpoint?.continuationCommand?.token;
-
-        if (!currentContinuation) {
-          break;
-        }
+        log(t('logFetchMorePage', {
+          page: pageCount + 1,
+          found: foundVideos,
+          total: videoIds.size,
+          queue: queue.length
+        }));
 
         await sleep(100);
 
       } catch (error) {
-        log(`获取更多视频出错: ${error.message}`, 'error');
+        log(t('logFetchMoreError', { error: error.message }), 'error');
         break;
       }
     }
@@ -537,34 +793,42 @@
       // 找到视频元素并点击其菜单按钮
       const videoElement = state.videos.find(v => v.id === videoId)?.element;
       if (!videoElement) {
-        throw new Error('找不到视频元素');
+        throw new Error(t('errVideoElementMissing'));
       }
 
       // 点击菜单按钮
-      const menuButton = videoElement.querySelector('button[aria-label="更多操作"], button#button[aria-haspopup="menu"]');
+      const menuButton =
+        Array.from(videoElement.querySelectorAll('button')).find(button => {
+          const ariaLabel = button.getAttribute('aria-label') || '';
+          const title = button.getAttribute('title') || '';
+          return matchesAnyText(ariaLabel, UI_TEXT.moreActions) || matchesAnyText(title, UI_TEXT.moreActions);
+        }) ||
+        videoElement.querySelector('button#button[aria-haspopup="menu"]');
       if (!menuButton) {
-        throw new Error('找不到菜单按钮');
+        throw new Error(t('errMenuButtonMissing'));
       }
 
       menuButton.click();
       await sleep(300);
 
       // 点击"保存到播放列表"
-      const saveButton = document.querySelector('tp-yt-paper-listbox ytd-menu-service-item-renderer:nth-child(2), [role="menuitem"]:nth-child(2)');
+      const saveButton =
+        findMenuItemByText(UI_TEXT.saveToPlaylist) ||
+        document.querySelector('tp-yt-paper-listbox ytd-menu-service-item-renderer:nth-child(2), [role="menuitem"]:nth-child(2)');
       if (!saveButton) {
         // 关闭菜单
         document.body.click();
-        throw new Error('找不到保存按钮');
+        throw new Error(t('errSaveButtonMissing'));
       }
 
       saveButton.click();
       await sleep(300);
 
       // 点击"稍后观看"复选框
-      const watchLaterCheckbox = document.querySelector('tp-yt-paper-checkbox[aria-label="稍后观看"], tp-yt-paper-checkbox[aria-label="Watch later"]');
+      const watchLaterCheckbox = findWatchLaterCheckbox();
       if (!watchLaterCheckbox) {
         document.body.click();
-        throw new Error('找不到稍后观看选项');
+        throw new Error(t('errWatchLaterMissing'));
       }
 
       // 检查是否已选中（已在列表中）
@@ -574,7 +838,7 @@
         document.body.click();
         await sleep(100);
         document.body.click();
-        log(`视频 ${videoId} 已在稍后观看列表中（备用方法检测）`);
+        log(t('logAlreadyInWatchLaterFallback', { videoId }));
         return { success: false, skipped: true, videoId };
       }
 
@@ -594,7 +858,7 @@
 
       return { success: true, videoId, method: 'click' };
     } catch (error) {
-      log(`备用方法也失败 ${videoId}: ${error.message}`, 'error');
+      log(t('logFallbackFailed', { videoId, error: error.message }), 'error');
       return { success: false, videoId, error: error.message };
     }
   }
@@ -613,13 +877,13 @@
     onProgress({
       current: 0,
       total: videoIds.length,
-      phase: '获取稍后观看列表...'
+      phase: t('progressFetchingWatchLater')
     });
 
     state.watchLaterVideos = await fetchWatchLaterVideos();
 
     if (state.watchLaterVideos.size === 0) {
-      log('无法获取稍后观看列表，继续尝试添加');
+      log(t('logWatchLaterUnavailable'));
     }
 
     // 开始逐个添加
@@ -631,7 +895,7 @@
       // 检查是否已在列表中
       if (state.watchLaterVideos.has(videoId)) {
         results.skipped.push(videoId);
-        log(`视频 ${videoId} 已在稍后观看列表中，跳过`);
+        log(t('logSkipExistingVideo', { videoId }));
         onProgress({
           current: i + 1,
           total: videoIds.length,
@@ -682,43 +946,43 @@
     toolbar.id = 'yt-batch-toolbar';
     toolbar.innerHTML = `
       <div class="ytb-header">
-        <span class="ytb-title">📹 批量工具</span>
-        <button class="ytb-close-btn" title="收起">−</button>
+        <span class="ytb-title">${t('toolbarTitle')}</span>
+        <button class="ytb-close-btn" title="${t('collapse')}">−</button>
       </div>
       <div class="ytb-body">
         <div class="ytb-row">
           <label class="ytb-checkbox">
             <input type="checkbox" id="ytb-skip-watched" checked>
-            <span>跳过已看过的视频</span>
+            <span>${t('skipWatched')}</span>
           </label>
         </div>
         <div class="ytb-row">
-          <label class="ytb-label">加载范围</label>
+          <label class="ytb-label">${t('loadRange')}</label>
           <select id="ytb-time-range" class="ytb-select">
-            <option value="all">全部视频</option>
-            <option value="1">最早 1 年</option>
-            <option value="2">最早 2 年</option>
-            <option value="3">最早 3 年</option>
-            <option value="5">最早 5 年</option>
-            <option value="count">按数量</option>
+            <option value="all">${t('allVideos')}</option>
+            <option value="1">${t('earliestYear', { years: 1 })}</option>
+            <option value="2">${t('earliestYear', { years: 2 })}</option>
+            <option value="3">${t('earliestYear', { years: 3 })}</option>
+            <option value="5">${t('earliestYear', { years: 5 })}</option>
+            <option value="count">${t('byCount')}</option>
           </select>
         </div>
         <div class="ytb-row" id="ytb-count-row" style="display: none;">
-          <label class="ytb-label">加载视频数量</label>
-          <input type="number" id="ytb-count-input" class="ytb-select" value="100" min="1" max="10000" placeholder="输入数量">
+          <label class="ytb-label">${t('loadVideoCount')}</label>
+          <input type="number" id="ytb-count-input" class="ytb-select" value="100" min="1" max="10000" placeholder="${t('countPlaceholder')}">
         </div>
         <div class="ytb-row ytb-stats">
-          <span>已选择: <strong id="ytb-selected-count">0</strong></span>
-          <span>总计: <strong id="ytb-total-count">0</strong></span>
+          <span>${t('selectedLabel')}: <strong id="ytb-selected-count">0</strong></span>
+          <span>${t('totalLabel')}: <strong id="ytb-total-count">0</strong></span>
         </div>
         <div class="ytb-buttons">
-          <button class="ytb-btn ytb-btn-secondary" id="ytb-load-all">加载视频</button>
-          <button class="ytb-btn ytb-btn-secondary" id="ytb-select-all">全选</button>
-          <button class="ytb-btn ytb-btn-secondary" id="ytb-select-none">取消全选</button>
+          <button class="ytb-btn ytb-btn-secondary" id="ytb-load-all">${t('loadVideos')}</button>
+          <button class="ytb-btn ytb-btn-secondary" id="ytb-select-all">${t('selectAll')}</button>
+          <button class="ytb-btn ytb-btn-secondary" id="ytb-select-none">${t('clearSelection')}</button>
         </div>
         <div class="ytb-row">
           <button class="ytb-btn ytb-btn-primary" id="ytb-add-watchlater">
-            添加到稍后观看
+            ${t('addToWatchLater')}
           </button>
         </div>
         <div class="ytb-progress" id="ytb-progress" style="display: none;">
@@ -745,7 +1009,7 @@
       const checkbox = document.createElement('div');
       checkbox.className = 'ytb-video-checkbox';
       checkbox.innerHTML = `<input type="checkbox" data-video-id="${video.id}">`;
-      checkbox.title = '点击选择/取消选择';
+      checkbox.title = t('checkboxTitle');
 
       // 插入到缩略图角落
       const thumbnail = video.element.querySelector('#thumbnail, a#thumbnail');
@@ -767,7 +1031,7 @@
     if (totalCount) {
       const displayVideos = state.filteredVideos || state.videos;
       if (state.filteredVideos && state.filteredVideos.length !== state.videos.length) {
-        totalCount.textContent = `${displayVideos.length} (共 ${state.videos.length})`;
+        totalCount.textContent = formatCountSummary(displayVideos.length, state.videos.length);
       } else {
         totalCount.textContent = state.videos.length;
       }
@@ -796,9 +1060,11 @@
       if (body.style.display === 'none') {
         body.style.display = 'block';
         btn.textContent = '−';
+        btn.title = t('collapse');
       } else {
         body.style.display = 'none';
         btn.textContent = '+';
+        btn.title = t('expand');
       }
     });
 
@@ -822,7 +1088,7 @@
       const timeRange = document.getElementById('ytb-time-range').value;
 
       btn.disabled = true;
-      btn.textContent = '加载中...';
+      btn.textContent = t('loading');
       state.filteredVideos = null;
 
       // 显示所有视频（清除之前的隐藏）
@@ -840,7 +1106,7 @@
       // 如果是按数量加载，获取目标数量
       if (timeRange === 'count') {
         targetCount = parseInt(document.getElementById('ytb-count-input').value) || 100;
-        log(`按数量加载，目标: ${targetCount} 个视频`);
+        log(t('logCountModeTarget', { count: targetCount }));
       }
 
       // 加载视频
@@ -865,14 +1131,14 @@
         addCheckboxes();
         updateStats();
 
-        log(`加载了 ${state.videos.length} 个视频`);
+        log(t('logLoadedCount', { count: state.videos.length }));
 
         // 按数量加载
         if (timeRange === 'count') {
-          btn.textContent = `加载中... ${state.videos.length} / ${targetCount} 个`;
+          btn.textContent = t('loadingCountProgress', { current: state.videos.length, target: targetCount });
           if (state.videos.length >= targetCount) {
             shouldStop = true;
-            log(`已达到目标数量 ${targetCount}，停止加载`);
+            log(t('logReachedTarget', { count: targetCount }));
           }
         }
         // 如果选择了时间范围，检查边界
@@ -889,8 +1155,14 @@
               oldestDate = firstVideo.publishedAt;
               cutoffDate = new Date(oldestDate);
               cutoffDate.setFullYear(cutoffDate.getFullYear() + years);
-              log(`最老视频日期: ${oldestDate.toLocaleDateString()}, 截止日期: ${cutoffDate.toLocaleDateString()}`);
-              log(`有日期的视频: ${videosWithDate.length}, 无日期: ${videosWithoutDate.length}`);
+              log(t('logOldestCutoff', {
+                oldest: oldestDate.toLocaleDateString(),
+                cutoff: cutoffDate.toLocaleDateString()
+              }));
+              log(t('logDateCoverage', {
+                withDate: videosWithDate.length,
+                withoutDate: videosWithoutDate.length
+              }));
             }
 
             // 检查最新加载的视频是否已超出范围
@@ -899,30 +1171,33 @@
               v.publishedAt && v.publishedAt >= cutoffDate
             );
 
-            log(`最后10个视频中超出范围的: ${outOfRange.length}`);
+            log(t('logOutOfRangeLastTen', { count: outOfRange.length }));
 
             // 统计范围内的视频数
             const inRangeCount = state.videos.filter(v =>
               !v.publishedAt || v.publishedAt < cutoffDate
             ).length;
 
-            btn.textContent = `加载中... ${inRangeCount} 个 (${years}年内)`;
+            btn.textContent = t('loadingYearProgress', { count: inRangeCount, years });
 
             // 如果最后加载的视频大部分都超出范围了，停止
             if (outOfRange.length >= 5) {
               shouldStop = true;
-              log(`检测到超出范围的视频，停止加载`);
+              log(t('logStopOutOfRange'));
             }
           } else {
-            log(`没有解析到时间信息，有日期: ${videosWithDate.length}, 无日期: ${videosWithoutDate.length}`);
+            log(t('logNoParsedDates', {
+              withDate: videosWithDate.length,
+              withoutDate: videosWithoutDate.length
+            }));
           }
         } else if (timeRange === 'all') {
-          btn.textContent = `加载中... ${state.videos.length} 个`;
+          btn.textContent = t('loadingAllProgress', { count: state.videos.length });
         }
 
         if (state.videos.length === lastCount) {
           noChangeCount++;
-          log(`视频数量未变化，计数: ${noChangeCount}`);
+          log(t('logNoChangeCount', { count: noChangeCount }));
         } else {
           noChangeCount = 0;
           lastCount = state.videos.length;
@@ -944,9 +1219,9 @@
         });
 
         state.filteredVideos = limited;
-        document.getElementById('ytb-total-count').textContent = `${limited.length} (共 ${state.videos.length})`;
-        btn.textContent = `已加载 ${limited.length} 个`;
-        showResult(`已加载 ${limited.length} 个视频`, 'success');
+        document.getElementById('ytb-total-count').textContent = formatCountSummary(limited.length, state.videos.length);
+        btn.textContent = t('loadedVideos', { count: limited.length });
+        showResult(t('loadedVideos', { count: limited.length }), 'success');
       } else if (timeRange !== 'all' && cutoffDate) {
         const years = parseInt(timeRange);
         const filtered = state.videos.filter(v =>
@@ -964,12 +1239,12 @@
 
         // 更新状态为筛选后的列表
         state.filteredVideos = filtered;
-        document.getElementById('ytb-total-count').textContent = `${filtered.length} (共 ${state.videos.length})`;
-        btn.textContent = `已筛选 ${filtered.length} 个`;
-        showResult(`最早 ${years} 年: ${filtered.length} 个视频`, 'success');
+        document.getElementById('ytb-total-count').textContent = formatCountSummary(filtered.length, state.videos.length);
+        btn.textContent = t('filteredEarliestYears', { years, count: filtered.length });
+        showResult(t('filteredEarliestYears', { years, count: filtered.length }), 'success');
       } else {
-        btn.textContent = `已加载 ${state.videos.length} 个`;
-        showResult(`已加载 ${state.videos.length} 个视频`, 'success');
+        btn.textContent = t('loadedVideos', { count: state.videos.length });
+        showResult(t('loadedVideos', { count: state.videos.length }), 'success');
       }
 
       btn.disabled = false;
@@ -1006,13 +1281,13 @@
 
       const videoIds = Array.from(state.selectedVideos);
       if (videoIds.length === 0) {
-        showResult('请先选择视频', 'error');
+        showResult(t('selectVideosFirst'), 'error');
         return;
       }
 
       const btn = document.getElementById('ytb-add-watchlater');
       btn.disabled = true;
-      btn.textContent = '处理中...';
+      btn.textContent = t('processing');
 
       showProgress(true);
       showResult('');
@@ -1022,16 +1297,15 @@
       });
 
       btn.disabled = false;
-      btn.textContent = '添加到稍后观看';
+      btn.textContent = t('addToWatchLater');
 
       // 显示结果
-      const total = results.success.length + results.skipped.length + results.failed.length;
       let resultText = '';
       if (results.failed.length === 0) {
         const parts = [];
-        if (results.success.length > 0) parts.push(`添加 ${results.success.length} 个`);
-        if (results.skipped.length > 0) parts.push(`跳过 ${results.skipped.length} 个(已在列表)`);
-        resultText = parts.join('，') || '无变化';
+        if (results.success.length > 0) parts.push(t('resultAdded', { count: results.success.length }));
+        if (results.skipped.length > 0) parts.push(t('resultSkipped', { count: results.skipped.length }));
+        resultText = parts.join(', ') || t('resultNoChange');
         showResult(resultText, 'success');
         state.selectedVideos.clear();
         document.querySelectorAll('.ytb-video-checkbox input').forEach(cb => {
@@ -1040,10 +1314,10 @@
         updateStats();
       } else {
         const parts = [];
-        if (results.success.length > 0) parts.push(`成功 ${results.success.length}`);
-        if (results.skipped.length > 0) parts.push(`跳过 ${results.skipped.length}`);
-        parts.push(`失败 ${results.failed.length}`);
-        showResult(parts.join('，'), 'warning');
+        if (results.success.length > 0) parts.push(t('resultSuccess', { count: results.success.length }));
+        if (results.skipped.length > 0) parts.push(t('resultSkipped', { count: results.skipped.length }));
+        parts.push(t('resultFailed', { count: results.failed.length }));
+        showResult(parts.join(', '), 'warning');
       }
     });
 
@@ -1097,11 +1371,11 @@
         // 显示阶段信息
         text.textContent = data.phase;
       } else {
-        let statusText = `处理中: ${data.current}/${data.total}`;
+        let statusText = t('progressProcessing', { current: data.current, total: data.total });
         const parts = [];
-        if (data.success > 0) parts.push(`成功 ${data.success}`);
-        if (data.skipped > 0) parts.push(`跳过 ${data.skipped}`);
-        if (data.failed > 0) parts.push(`失败 ${data.failed}`);
+        if (data.success > 0) parts.push(t('progressSuccess', { count: data.success }));
+        if (data.skipped > 0) parts.push(t('progressSkipped', { count: data.skipped }));
+        if (data.failed > 0) parts.push(t('progressFailed', { count: data.failed }));
         if (parts.length > 0) statusText += ` (${parts.join(', ')})`;
         text.textContent = statusText;
       }
@@ -1132,26 +1406,26 @@
 
       // 查找 ytChipShapeButtonReset 按钮
       const chipButtons = document.querySelectorAll('button.ytChipShapeButtonReset');
-      log(`找到 ${chipButtons.length} 个 chip 按钮`);
+      log(t('logFoundChipButtons', { count: chipButtons.length }));
 
       for (const btn of chipButtons) {
         const text = (btn.textContent || '').trim();
 
         // 找到"最新"按钮，点击展开菜单
-        if (text === '最新' || text === '最新发布' || text.toLowerCase() === 'newest') {
-          log('点击"最新"按钮展开菜单');
+        if (matchesAnyText(text, UI_TEXT.newest)) {
+          log(t('logOpenNewestMenu'));
           btn.click();
           await sleep(500);
 
           // 查找所有可能的菜单项
           const allButtons = document.querySelectorAll('button');
-          log(`菜单展开后找到 ${allButtons.length} 个按钮`);
+          log(t('logMenuButtonsFound', { count: allButtons.length }));
 
           for (const item of allButtons) {
             const itemText = (item.textContent || '').trim();
-            if (itemText === '最早' || itemText === '最旧' || itemText.toLowerCase() === 'oldest') {
+            if (matchesAnyText(itemText, UI_TEXT.oldest)) {
               item.click();
-              log('已选择"最早"排序');
+              log(t('logSelectedOldest'));
               await sleep(1000);
               return;
             }
@@ -1159,21 +1433,21 @@
 
           // 没找到，关闭菜单
           document.body.click();
-          log('菜单中未找到"最早"选项');
+          log(t('logOldestNotFound'));
           return;
         }
 
         // 如果已经是"最早"
-        if (text === '最早' || text === '最旧' || text.toLowerCase() === 'oldest') {
-          log('当前已是"最早"排序');
+        if (matchesAnyText(text, UI_TEXT.oldest)) {
+          log(t('logAlreadyOldest'));
           return;
         }
       }
 
-      log('未找到排序按钮');
+      log(t('logSortButtonMissing'));
 
     } catch (error) {
-      log(`选择排序失败: ${error.message}`, 'error');
+      log(t('logSortSelectionFailed', { error: error.message }), 'error');
     }
   }
 
@@ -1187,7 +1461,7 @@
       return;
     }
 
-    log('初始化批量工具...');
+    log(t('logInit'));
 
     // 自动选择"最早"排序
     selectOldestSort();
