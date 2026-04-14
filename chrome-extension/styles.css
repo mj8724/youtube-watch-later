@@ -1,0 +1,294 @@
+/* YouTube 批量工具样式 */
+
+#yt-batch-toolbar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 999999;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+#yt-batch-toolbar * {
+  box-sizing: border-box;
+}
+
+.ytb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #cc0000;
+  color: white;
+}
+
+.ytb-title {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.ytb-close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.ytb-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ytb-body {
+  padding: 16px;
+}
+
+.ytb-row {
+  margin-bottom: 12px;
+}
+
+.ytb-stats {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: #666;
+}
+
+.ytb-stats strong {
+  color: #333;
+}
+
+.ytb-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.ytb-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.ytb-label {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.ytb-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.ytb-select:focus {
+  outline: none;
+  border-color: #cc0000;
+}
+
+/* 数字输入框 */
+#ytb-count-input {
+  cursor: text;
+  -moz-appearance: textfield;
+}
+
+#ytb-count-input::-webkit-outer-spin-button,
+#ytb-count-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.ytb-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.ytb-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.ytb-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ytb-btn-secondary {
+  background: #f1f1f1;
+  color: #333;
+}
+
+.ytb-btn-secondary:hover:not(:disabled) {
+  background: #e5e5e5;
+}
+
+.ytb-btn-primary {
+  width: 100%;
+  padding: 12px;
+  background: #cc0000;
+  color: white;
+  font-size: 14px;
+}
+
+.ytb-btn-primary:hover:not(:disabled) {
+  background: #b30000;
+}
+
+/* 进度条 */
+.ytb-progress {
+  margin-top: 12px;
+}
+
+.ytb-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e5e5e5;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ytb-progress-fill {
+  height: 100%;
+  background: #cc0000;
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+.ytb-progress-text {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+}
+
+/* 结果提示 */
+.ytb-result {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.ytb-result-success {
+  background: #e6f7e6;
+  color: #1a7f1a;
+  border: 1px solid #b3e6b3;
+}
+
+.ytb-result-warning {
+  background: #fff7e6;
+  color: #b36b00;
+  border: 1px solid #ffe6b3;
+}
+
+.ytb-result-error {
+  background: #ffe6e6;
+  color: #cc0000;
+  border: 1px solid #ffb3b3;
+}
+
+/* 视频复选框 */
+.ytb-video-checkbox {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+}
+
+.ytb-video-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #cc0000;
+}
+
+/* 已看视频标记 */
+.ytb-watched-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+/* 暗色主题适配 */
+html[dark] #yt-batch-toolbar,
+[dark] #yt-batch-toolbar {
+  background: #212121;
+  color: #fff;
+}
+
+html[dark] .ytb-stats,
+[dark] .ytb-stats {
+  color: #aaa;
+}
+
+html[dark] .ytb-stats strong,
+[dark] .ytb-stats strong {
+  color: #fff;
+}
+
+html[dark] .ytb-btn-secondary,
+[dark] .ytb-btn-secondary {
+  background: #3f3f3f;
+  color: #fff;
+}
+
+html[dark] .ytb-btn-secondary:hover:not(:disabled),
+[dark] .ytb-btn-secondary:hover:not(:disabled) {
+  background: #505050;
+}
+
+html[dark] .ytb-progress-bar,
+[dark] .ytb-progress-bar {
+  background: #3f3f3f;
+}
+
+html[dark] .ytb-select,
+[dark] .ytb-select {
+  background: #3f3f3f;
+  border-color: #505050;
+  color: #fff;
+}
+
+html[dark] .ytb-label,
+[dark] .ytb-label {
+  color: #aaa;
+}
+
+/* 小屏幕适配 */
+@media (max-width: 400px) {
+  #yt-batch-toolbar {
+    width: calc(100% - 20px);
+    left: 10px;
+    right: 10px;
+  }
+}
