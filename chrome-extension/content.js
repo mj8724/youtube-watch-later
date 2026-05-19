@@ -96,7 +96,12 @@
       logAlreadyOldest: '当前已是"最早"排序',
       logSortButtonMissing: '未找到排序按钮',
       logSortSelectionFailed: '选择排序失败: {error}',
-      logInit: '初始化批量工具...'
+      logInit: '初始化批量工具...',
+      skipMemberOnly: '跳过会员视频',
+      logSubscribed: '检测到已订阅此频道',
+      logNotSubscribed: '未订阅此频道，将跳过会员视频',
+      logMemberOnlySkipped: '视频 {videoId} 是会员专属，已跳过',
+      resultMemberSkipped: '跳过会员视频 {count} 个'
     },
     en: {
       toolbarTitle: '📹 Batch Tool',
@@ -180,7 +185,12 @@
       logAlreadyOldest: 'The page is already sorted by "Oldest"',
       logSortButtonMissing: 'Sort button not found',
       logSortSelectionFailed: 'Failed to choose the sort order: {error}',
-      logInit: 'Initializing batch tool...'
+      logInit: 'Initializing batch tool...',
+      skipMemberOnly: 'Skip member-only videos',
+      logSubscribed: 'Subscribed to this channel',
+      logNotSubscribed: 'Not subscribed, member-only videos will be skipped',
+      logMemberOnlySkipped: 'Video {videoId} is members-only, skipped',
+      resultMemberSkipped: 'Skipped member-only: {count}'
     }
   };
 
@@ -198,7 +208,9 @@
     isProcessing: false,
     videos: [],
     filteredVideos: null,  // 筛选后的视频列表
-    watchLaterVideos: null  // 稍后观看列表中的视频 ID 集合
+    watchLaterVideos: null,  // 稍后观看列表中的视频 ID 集合
+    isSubscribed: false,  // 是否订阅了当前频道
+    skipMemberOnly: true  // 是否跳过会员视频
   };
 
   // 工具函数
@@ -207,6 +219,30 @@
   }
 
   function getCurrentLanguage() {
+    const pageLang = (document.documentElement.lang || '').toLowerCase();
+
+  // 检测是否订阅了当前频道
+  function isSubscribedToChannel() {
+    const btn = document.querySelector('ytd-subscribe-button-renderer');
+    if (!btn) return true; // 找不到按钮（自己的频道等），默认已订阅
+    if (btn.data && typeof btn.data.subscribed === 'boolean') {
+      return btn.data.subscribed;
+    }
+    const text = btn.textContent.trim();
+    return text.includes('已订阅') || text.includes('Subscribed');
+  }
+
+  // 检测视频是否是会员专属
+  function isMemberOnlyVideo(videoRenderer) {
+    if (!videoRenderer || !videoRenderer.badges) return false;
+    return videoRenderer.badges.some(badge => {
+      const r = badge.metadataBadgeRenderer;
+      if (!r) return false;
+      return r.style === 'BADGE_STYLE_TYPE_MEMBERS_ONLY'
+        || (r.icon && r.icon.iconType === 'MEMBERS_ONLY')
+        || (r.label && (r.label.includes('会员') || r.label.toLowerCase().includes('member')));
+    });
+  }
     const pageLang = (document.documentElement.lang || '').toLowerCase();
     const browserLang = (navigator.language || '').toLowerCase();
     if (pageLang) {
@@ -332,12 +368,14 @@
 
       // 优先从 elem.data 获取（更可靠）
       const videoData = elem?.data?.content?.videoRenderer;
+      let isMemberOnly = false;
       if (videoData) {
         videoId = videoData.videoId || '';
         title = videoData.title?.runs?.[0]?.text || videoData.title?.simpleText || '';
         timeText = videoData.publishedTimeText?.simpleText || '';
         thumbnailUrl = videoData.thumbnail?.thumbnails?.[0]?.url || '';
         publishedAt = parseRelativeTime(timeText);
+        isMemberOnly = isMemberOnlyVideo(videoData);
       }
 
       // 备用：从 DOM 获取
@@ -399,6 +437,7 @@
         title,
         index,
         isWatched,
+        isMemberOnly,
         progress,
         thumbnailUrl,
         publishedAt,
@@ -906,6 +945,21 @@
         continue;
       }
 
+      // 检查是否是会员专属视频
+      const videoInfo = state.videos.find(v => v.id === videoId);
+      if (videoInfo && videoInfo.isMemberOnly && !state.isSubscribed) {
+        results.skipped.push(videoId);
+        log(t('logMemberOnlySkipped', { videoId }));
+        onProgress({
+          current: i + 1,
+          total: videoIds.length,
+          success: results.success.length,
+          skipped: results.skipped.length,
+          failed: results.failed.length
+        });
+        continue;
+      }
+
       const result = await addToWatchLater(videoId);
 
       if (result.success) {
@@ -954,6 +1008,12 @@
           <label class="ytb-checkbox">
             <input type="checkbox" id="ytb-skip-watched" checked>
             <span>${t('skipWatched')}</span>
+          </label>
+        </div>
+        <div class="ytb-row">
+          <label class="ytb-checkbox">
+            <input type="checkbox" id="ytb-skip-member" ${state.isSubscribed ? '' : 'checked'}>
+            <span>${t('skipMemberOnly')}</span>
           </label>
         </div>
         <div class="ytb-row">
@@ -1071,10 +1131,12 @@
     // 全选
     document.getElementById('ytb-select-all').addEventListener('click', () => {
       const skipWatched = document.getElementById('ytb-skip-watched').checked;
+      const skipMember = document.getElementById('ytb-skip-member').checked;
       // 如果有筛选后的列表，只选择筛选后的
       const targetVideos = state.filteredVideos || state.videos;
       targetVideos.forEach(video => {
         if (skipWatched && video.isWatched) return;
+        if (skipMember && !state.isSubscribed && video.isMemberOnly) return;
         state.selectedVideos.add(video.id);
         const checkbox = document.querySelector(`[data-video-id="${video.id}"]`);
         if (checkbox) checkbox.checked = true;
@@ -1343,6 +1405,20 @@
         updateStats();
       }
     });
+
+    // 跳过会员视频设置变更
+    document.getElementById('ytb-skip-member').addEventListener('change', (e) => {
+      if (e.target.checked && !state.isSubscribed) {
+        state.videos.forEach(video => {
+          if (video.isMemberOnly && state.selectedVideos.has(video.id)) {
+            state.selectedVideos.delete(video.id);
+            const checkbox = document.querySelector(`[data-video-id="${video.id}"]`);
+            if (checkbox) checkbox.checked = false;
+          }
+        });
+        updateStats();
+      }
+    });
   }
 
   // 显示进度
@@ -1471,6 +1547,8 @@
       const videosContainer = document.querySelector('ytd-rich-grid-renderer, ytd-grid-renderer');
       if (videosContainer) {
         clearInterval(checkReady);
+        state.isSubscribed = isSubscribedToChannel();
+        log(state.isSubscribed ? t('logSubscribed') : t('logNotSubscribed'));
         createUI();
         state.videos = extractVideos();
         addCheckboxes();
